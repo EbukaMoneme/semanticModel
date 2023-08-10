@@ -1,8 +1,14 @@
 from gensim import models
-from keybert import KeyBERT
+# from keybert import KeyBERT
+
+from sklearn.feature_extraction.text import TfidfVectorizer  # temp
+from sklearn.feature_extraction import text  # temp
+
+stop_words = list(text.ENGLISH_STOP_WORDS)  # temp
+tfidf = TfidfVectorizer(stop_words=stop_words)  # temp
 
 # KeyBERT model to extract important words/phrases and block stop words from query sentence
-kw_model = KeyBERT()  # commented for now
+# kw_model = KeyBERT()  # commented for now
 
 # Word2vec model to generate like terms
 model = models.Word2Vec.load('app/model/mymodel.model')
@@ -42,7 +48,9 @@ def retrieve_related_terms(text):
 
 
 def generate_like_terms(query):
-    keywords = extract_phrases(query)
+    # keywords = extract_phrases(query)
+    transformed = tfidf.fit_transform([query])
+    keywords = tfidf.get_feature_names_out()  # temp
 
     final_terms = []
     for word in keywords:
