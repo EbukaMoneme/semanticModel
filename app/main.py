@@ -1,5 +1,4 @@
-from fastapi import Body, FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI
 from app.model.model import generate_like_terms
 
 app = FastAPI()
@@ -10,7 +9,7 @@ def home():
     return {"health_check": "OK"}
 
 
-@app.post('/tokenize')
-def tokenize(payload: dict) -> list[str]:
-    tokens = generate_like_terms(payload['query'])
+@app.get('/tokenize/{query}')
+def tokenize(query: str) -> list[str]:
+    tokens = generate_like_terms(query)
     return tokens
