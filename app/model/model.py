@@ -5,7 +5,7 @@ from keybert import KeyBERT
 kw_model = KeyBERT()
 
 # Word2vec model to generate like terms
-model = models.Word2Vec.load('app/model/mymodel.model')
+model = models.Word2Vec.load('app/model/display.model')
 
 # Extract keywords and keyphrases from query
 
